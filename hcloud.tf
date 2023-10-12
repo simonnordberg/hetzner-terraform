@@ -8,7 +8,7 @@ resource "hcloud_ssh_key" "default" {
 }
 
 provider "hcloud" {
-  token = "${var.hcloud_token}"
+  token = var.hcloud_token
 }
 
 # Servers
@@ -24,25 +24,6 @@ resource "hcloud_server" "photoprism" {
   }
   user_data = file("setup/ubuntu/user_data.yml")
 }
-
-# Volumes
-#resource "hcloud_volume" "photoprism_data" {
-#  name      = "photoprism-data"
-#  server_id = hcloud_server.photoprism.id
-#  size      = 10
-#  format    = "ext4"
-#  automount = true
-#  depends_on = [hcloud_server.photoprism]
-#}
-
-#resource "hcloud_volume" "photoprism_import" {
-#  name      = "photoprism-import"
-#  server_id = hcloud_server.photoprism.id
-#  size      = 20
-#  format    = "ext4"
-#  automount = true
-#  depends_on = [hcloud_server.photoprism]
-#}
 
 resource "hcloud_firewall" "photoprism_firewall" {
   name = "photoprism-firewall"
@@ -67,17 +48,3 @@ resource "hcloud_firewall" "photoprism_firewall" {
     ]
   }
 }
-
-
-# Volume attachments
-#resource "hcloud_volume_attachment" "photoprism_data_attachment" {
-#  volume_id = hcloud_volume.photoprism_data.id
-#  server_id = hcloud_server.photoprism.id
-#  automount = true
-#}
-
-#resource "hcloud_volume_attachment" "photoprism_import_attachment" {
-#  volume_id = hcloud_volume.photoprism_import.id
-#  server_id = hcloud_server.photoprism.id
-#  automount = true
-#}
