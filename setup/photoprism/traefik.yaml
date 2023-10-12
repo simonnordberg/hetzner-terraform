@@ -26,9 +26,6 @@ global:
 # allow to proxy services with self-signed certificates
 serversTransport:
   insecureSkipVerify: true
-  # !! REMOVE when using Let's Encrypt HTTPS !!
-  rootCAs:
-    - "/certs/ca.crt"
 
 # open ports ond protocols (HTTP will be redirected to HTTPS)
 entryPoints:

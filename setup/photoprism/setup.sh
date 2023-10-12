@@ -103,7 +103,7 @@ PUBLIC_IP=$(curl -sfSL -4 ifconfig.me)
 echo "Downloading configuration..."
 
 # download service config
-COMPOSE_CONFIG=$(curl -fsSL https://dl.photoprism.app/docker/cloud/docker-compose.yml)
+COMPOSE_CONFIG=$(curl -fsSL $SETUP_BASE_URL/docker-compose.yml)
 COMPOSE_CONFIG=${COMPOSE_CONFIG//_public_ip_/$PUBLIC_IP}
 COMPOSE_CONFIG=${COMPOSE_CONFIG//$PASSWORD_PLACEHOLDER/$ADMIN_PASSWORD}
 echo "${COMPOSE_CONFIG}" > /opt/photoprism/docker-compose.yml

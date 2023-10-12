@@ -22,12 +22,9 @@ services:
       - "traefik.http.services.photoprism.loadbalancer.server.port=2342"
       - "traefik.http.routers.photoprism.tls=true"
       - "traefik.http.routers.photoprism.entrypoints=websecure"
-      ## !! REMOVE default route if your server has a public domain name !!
-      - "traefik.http.routers.photoprism.rule=PathPrefix(`/`)"
       - "traefik.http.routers.photoprism.rule=Host(`photos.simonnordberg.com`)"
       - "traefik.http.routers.photoprism.tls.certresolver=myresolver"
     environment:
-      ## !! CHANGE site url if your server has a public domain name e.g. "https://photos.yourdomain.com/" !!
       PHOTOPRISM_SITE_URL: "https://photos.simonnordberg.com/"
       PHOTOPRISM_SITE_CAPTION: "Simon Nordberg's Photos"
       PHOTOPRISM_SITE_DESCRIPTION: ""                  # meta site description
