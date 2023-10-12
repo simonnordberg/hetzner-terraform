@@ -5,6 +5,14 @@ write_files:
     permissions: '0755'
     content: |
       #!/bin/bash
+      
+      # Create a symlink to a /mnt/data folder that photoprism will use
+      latest=$(find /mnt -type d -name "HC_Volume*" | sort -Vr | head -n 1)
+      if [[ $latest ]]; then
+        ln -s $latest /mnt/data
+      fi     
+
+      # Now run the photoprism install
       curl -s https://raw.githubusercontent.com/simonnordberg/hetzner-terraform/main/setup/photoprism/setup.sh | bash -s
 
 runcmd:

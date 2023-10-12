@@ -26,28 +26,37 @@ resource "hcloud_server" "photoprism" {
 
 # Volumes
 resource "hcloud_volume" "photoprism_data" {
-  name     = "photoprism-data"
-  size     = 10
-  location = var.location
-  format   = "ext4"
+  name      = "photoprism-data"
+  server_id = hcloud_server.photoprism.id
+  size      = 10
+  format    = "ext4"
+  automount = true
+  depends_on = [hcloud_server.photoprism]
 }
 
-resource "hcloud_volume" "photoprism_import" {
-  name     = "photoprism-import"
-  size     = 20
-  location = var.location
-  format   = "ext4"
+#resource "hcloud_volume" "photoprism_import" {
+#  name      = "photoprism-import"
+#  server_id = hcloud_server.photoprism.id
+#  size      = 20
+#  format    = "ext4"
+#  automount = true
+#  depends_on = [hcloud_server.photoprism]
+#}
+
+resource "hcloud_firewall" "photoprism_firewall" {
+  name = "photoprism-firewall"
 }
+
 
 # Volume attachments
-resource "hcloud_volume_attachment" "photoprism_data_attachment" {
-  volume_id = hcloud_volume.photoprism_data.id
-  server_id = hcloud_server.photoprism.id
-  automount = true
-}
+#resource "hcloud_volume_attachment" "photoprism_data_attachment" {
+#  volume_id = hcloud_volume.photoprism_data.id
+#  server_id = hcloud_server.photoprism.id
+#  automount = true
+#}
 
-resource "hcloud_volume_attachment" "photoprism_import_attachment" {
-  volume_id = hcloud_volume.photoprism_import.id
-  server_id = hcloud_server.photoprism.id
-  automount = true
-}
+#resource "hcloud_volume_attachment" "photoprism_import_attachment" {
+#  volume_id = hcloud_volume.photoprism_import.id
+#  server_id = hcloud_server.photoprism.id
+#  automount = true
+#}
