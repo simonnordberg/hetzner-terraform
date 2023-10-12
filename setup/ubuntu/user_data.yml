@@ -1,0 +1,11 @@
+#cloud-config
+
+write_files:
+  - path: /usr/local/bin/bootstrap.sh
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+      curl -s https://raw.githubusercontent.com/simonnordberg/hetzner-terraform/main/setup/photoprism/setup.sh | bash -s
+
+runcmd:
+  - /usr/local/bin/bootstrap.sh
